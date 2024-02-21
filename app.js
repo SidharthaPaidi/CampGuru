@@ -1,12 +1,16 @@
 const express = require('express')
 const path = require('path')
+const mongoose = require('mongoose')
 const ejsMate = require('ejs-mate')
 const methodOverride = require('method-override')
-const mongoose = require('mongoose')
-mongoose.set('strictQuery', true)
+const Campground = require('./models/campground')
+
+mongoose.set('strict', true);
 mongoose.connect('mongodb://127.0.0.1:27017/camp-guru');
 
-const Campground = require('./models/campground')
+
+
+
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -55,7 +59,6 @@ app.get('/campgrounds/:id', async (req, res) => {
 
 //editing campground route
 app.get('/campgrounds/:id/edit', async (req, res) => {
-    console.log(`Editing campground with id: ${req.params.id}`);
     const campground = await Campground.findById(req.params.id)
     res.render('campgrounds/edit', { campground })
 
@@ -63,7 +66,6 @@ app.get('/campgrounds/:id/edit', async (req, res) => {
 
 //updating campground route
 app.put('/campgrounds/:id', async (req, res) => {
-    console.log(`Updating campground with id: ${req.params.id}`);
     const { id } = req.params
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground })
     res.redirect(`/campgrounds/${campground._id}`)
@@ -71,9 +73,8 @@ app.put('/campgrounds/:id', async (req, res) => {
 
 //deleting campground
 app.delete('/campgrounds/:id', async (req,res) => {
-    console.log(`Deleting campground with id: ${req.params.id}`);
     const { id } = req.params
-    const deletedCampground = await Campground.findByIdAndDelete(id)
+    await Campground.findByIdAndDelete(id)
     res.redirect('/campgrounds')
 })
 
