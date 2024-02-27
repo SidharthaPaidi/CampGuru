@@ -45,10 +45,15 @@ app.get('/campgrounds/new', (req, res) => {
 })
 
 //creating campground route
-app.post('/campgrounds', async (req, res) => {
+app.post('/campgrounds', async (req, res, next) => {
+   try {
     const campground = new Campground(req.body.campground)
     await campground.save()
     res.redirect(`/campgrounds/${campground._id}`)
+   }catch(e){
+    next(e)
+   }
+   
 })
 
 //viewing campground show route
@@ -76,6 +81,12 @@ app.delete('/campgrounds/:id', async (req,res) => {
     const { id } = req.params
     await Campground.findByIdAndDelete(id)
     res.redirect('/campgrounds')
+})
+
+//error handler
+
+app.use((err,req,res,next) => {
+    res.send("Ohh boii something went wrong")
 })
 
 
