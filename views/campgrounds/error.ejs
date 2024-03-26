@@ -1,0 +1,12 @@
+<% layout('layouts/boilerplate')%>
+
+
+<div style="display: grid; place-items: center; height: 75vh;">
+    <h1 class="mt-10"><%= err.message  %></h1>
+    <div class="row">
+        <div class="col-6">
+            <img src="https://http.cat/[<%= err.statusCode  %>]" alt="HTTP Cat Image">
+            <!-- <img src="https://http.cat/[status_code]" alt="HTTP Cat Image"> -->
+        </div>
+    </div>
+</div>
