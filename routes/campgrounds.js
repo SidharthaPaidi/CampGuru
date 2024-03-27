@@ -40,13 +40,13 @@ router.post('',isLoggedIn, validateCampground, catchAsync(async (req, res, next)
 }))
 
 //viewing campground show route
-router.get('/:id',isLoggedIn, catchAsync(async (req, res) => {
+router.get('/:id', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id).populate('reviews')
     res.render('campgrounds/show', { campground })
 }))
 
 //editing campground route
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit',isLoggedIn, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id)
     res.render('campgrounds/edit', { campground })
 
