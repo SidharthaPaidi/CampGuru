@@ -27,7 +27,6 @@ module.exports.renderLogin = (req, res) => {
 module.exports.login = (req, res) => {
     req.flash('success', 'Welcome back!');
     const redirectUrl = res.locals.returnTo || '/campgrounds'; // update this line to use res.locals.returnTo now
-    console.log(redirectUrl)
     res.redirect(redirectUrl);
 }
 

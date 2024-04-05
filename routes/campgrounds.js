@@ -5,12 +5,16 @@ const campgrounds = require('../controllers/campgrounds')
 const Campground = require('../models/campground')
 const { isLoggedIn, isAuthor, validateCampground } = require('../middleware.js');
 const campground = require('../models/campground');
+const multer  = require('multer')
+const { storage } = require('../cloudinary')
+const upload = multer({ storage })
 
 
 //index route and creating campground route
 router.route('/')
     .get(catchAsync(campgrounds.index))
-    .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createNewCampground))
+    .post(isLoggedIn, upload.array('image'),validateCampground,  catchAsync(campgrounds.createNewCampground))
+    
 
 //adding campground route
 router.route('/new')
@@ -19,7 +23,7 @@ router.route('/new')
 //viewing campground show route ,updating campground route, deleting campground
 router.route('/:id')
     .get(catchAsync(campgrounds.showCampground))
-    .put(isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.updateCampground))
+    .put(isLoggedIn, isAuthor,upload.array('image'), validateCampground, catchAsync(campgrounds.updateCampground))
     .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground))
     
 //editing campground route
