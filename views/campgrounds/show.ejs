@@ -54,42 +54,57 @@
         </div>
     </div>
     <div class="col-6"> <!-- Start a new column -->
-        <div id='map' style='width: 100%; height: 300px;'></div>
+        <div style='width: 100%; height: 300px;'>
+            <div id="map"></div>
+            <div id="menu">
+                <input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors" checked="checked">
+                <!-- See a list of Mapbox-hosted public styles at -->
+                <!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
+                <label for="satellite-streets-v12">satellite streets</label>
+                <input id="light-v11" type="radio" name="rtoggle" value="light">
+                <label for="light-v11">light</label>
+                <input id="dark-v11" type="radio" name="rtoggle" value="dark">
+                <label for="dark-v11">dark</label>
+                <input id="streets-v12" type="radio" name="rtoggle" value="streets">
+                <label for="streets-v12">streets</label>
+                <input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors">
+                <label for="outdoors-v12">outdoors</label>
+            </div>
+            
+        </div> <!-- Display the map -->
         <% if(currentUser){ %> <!-- If a user is logged in, display the review form -->
-            <h2>Leave a Review</h2>
-            <form action="/campgrounds/<%=campground._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
-                <!-- Review form goes here -->
-                <!-- <div class="mb-3">
-                        <label class="form-label" for="rating">Rating</label>
-                        <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
-                    </div> -->
-                    <fieldset class="starability-basic">
-                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked
-                            aria-label="No rating." />
-                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-                        <label for="first-rate1" title="Terrible">1 star</label>
-                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-                        <label for="first-rate2" title="Not good">2 stars</label>
-                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-                        <label for="first-rate3" title="Average">3 stars</label>
-                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-                        <label for="first-rate4" title="Very good">4 stars</label>
-                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-                        <label for="first-rate5" title="Amazing">5 stars</label>
-                    </fieldset>
-                    <div class="mb-3">
-                        <label class="form-label" for="body">Review</label>
-                        <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3"
-                            required></textarea>
-                        <div class="valid-feedback">
-                            Sahi hai!
+            <div class="mt-5 d-flex justify-content-center border border-light p-1">
+                <div class="col-md-12">
+                    <h2>Leave a Review</h2>
+                    <form action="/campgrounds/<%=campground._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
+                        <fieldset class="starability-basic">
+                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                        </fieldset>
+                        <div class="mb-3">
+                            <label class="form-label" for="body">Review</label>
+                            <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+                            <div class="valid-feedback">
+                                Sahi hai!
+                            </div>
+                            <div class="invalid-feedback">
+                                Ye bharna padega!!
+                            </div>
                         </div>
-                        <div class="invalid-feedback">
-                            Ye bharna padega!!
-                        </div>
-                    </div>
-                    <button class="btn btn-success">Submit</button>
-            </form>
+                        <button class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
+            
         <% } %>
         <% for(let review of campground.reviews) { %> <!-- Loop over each review in the campground -->
             <div class="card mb-3 "> <!-- Start a new card for the review -->
