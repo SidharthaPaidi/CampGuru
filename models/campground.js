@@ -19,6 +19,10 @@ ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_100');
 });
 
+
+// This option will ensure that when a campground is converted to JSON, the virtual properties are included
+const opts = { toJSON: { virtuals: true } };
+
 // Define a CampgroundSchema with a title field
 const CampgroundSchema = new Schema({
     title: String,
@@ -47,6 +51,13 @@ const CampgroundSchema = new Schema({
             ref: 'Review'
         }
     ]
+}, opts);
+
+// Define a virtual property 'properties.popUpMarkup' on the CampgroundSchema
+CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
+    return `
+    <strong><a href="/campgrounds/${this._id}">${this.title}</a><strong>
+    <p>${this.description.substring(0, 20)}...</p>`
 });
 
 // Define a post middleware for the 'findOneAndDelete' method on the CampgroundSchema
