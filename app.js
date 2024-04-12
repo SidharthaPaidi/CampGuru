@@ -39,6 +39,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'assets')));
 
 
 const sessionConfig = {
@@ -76,8 +77,12 @@ app.use('/campgrounds/:id/reviews', reviewRoutes)
 //home route
 
 app.get('/', (req, res) => {
-    res.render('home') 
-})
+    res.render('home');
+}); 
+
+app.get('/contacts',(req, res) => {
+    res.render('contacts');
+}); 
 
 //error handler
 app.all('*', (req, res, next) => {

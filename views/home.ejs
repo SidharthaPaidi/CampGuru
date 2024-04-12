@@ -1,2 +1,107 @@
-<% layout('layouts/boilerplate') %>
-    <h1>Home CampGuru !</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>CampGuru</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Include the Mapbox GL JS library from a CDN -->
+  <script src='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js'></script>
+  <!-- Include the Mapbox GL CSS file from a CDN -->
+  <link href='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css' rel='stylesheet' />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center">
+          <header id="header" class="d-flex align-items-center">
+            <div class="container d-flex align-items-center justify-content-between" id="header">
+              <div class="logo">
+                <h1 class="text-light"><a href="/"><span>CampGuru</span></a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html"><img src="/img/logo.png" alt="" class="img-fluid"></a>-->
+              </div>
+              <nav id="navbar" class="navbar">
+                <ul>
+                  <% if(!currentUser) {%>
+                    <li><a class="nav-link" href="/login">LOg in</a></li>
+                    <li><a class="nav-link" href="/register">sign up</a></li>
+                    <% } else {%>
+                      <li><a class="nav-link" href="/logout">Log out</a></li>
+                      <% } %>
+                        <li><a class="nav-link" href="/campgrounds">Campgrounds</a></li>
+                        <li><a class="nav-link" href="/contacts">Contact</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+              </nav><!-- .navbar -->
+            </div>
+          </header>
+        </div>
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+          <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active"
+              style="background-image: url(https://res.cloudinary.com/dhorfmxva/image/upload/v1712936592/photo-1475483768296-6163e08872a1_g3eltq.avif);">
+              <div class="carousel-container">
+                <div class="carousel-content">
+                  <h2 class="animate__animated animate__fadeInDown">CampGuru</h2>
+                  <p class="animate__animated animate__fadeInUp">CampGuru simplifies your outdoor adventures, offering
+                    curated listings, stunning visuals, and user reviews. Find your perfect spot, connect with fellow
+                    campers, and start exploring today. <br>Happy camping!</p>
+                  <a href="<% if(!currentUser) {%>
+                  /register
+                  <% } else {%>
+                    /campgrounds
+                    <% } %>" class="btn-get-started animate__animated animate__fadeInUp scrollto">Get Started</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 d-flex flex-column justify-content-center bg-black mb-100">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque perferendis, omnis odit enim facere cum libero, earum aliquam voluptate iste deserunt dolores cupiditate consequuntur nulla. Blanditiis beatae illo ea quae!</p>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/javascripts/toggle.js"></script>
+
+</body>
+
+</html>

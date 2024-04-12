@@ -1,22 +1,23 @@
 
-    mapboxgl.accessToken = mapToken; // Set the Mapbox access token 
-    const map = new mapboxgl.Map({
-        container: 'map', // container ID
-        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        style: 'mapbox://styles/mapbox/streets-v12', // style URL
-        center: campground.geometry.coordinates, // starting position [lng, lat]
-        zoom: 13 // starting zoom
-    });
+mapboxgl.accessToken = mapToken; // Set the Mapbox access token 
+const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+    style: 'mapbox://styles/mapbox/streets-v12', // style URL
+    center: campground.geometry.coordinates, // starting position [lng, lat]
+    zoom: 13 // starting zoom
+});
 
-    const layerList = document.getElementById('menu');
-    const inputs = layerList.getElementsByTagName('input');
+map.addControl(new mapboxgl.NavigationControl());
+const layerList = document.getElementById('menu');
+const inputs = layerList.getElementsByTagName('input');
 
-    for (const input of inputs) {
-        input.onclick = (layer) => {
-            const layerId = layer.target.id;
-            map.setStyle('mapbox://styles/mapbox/' + layerId);
-        };
-    }
+for (const input of inputs) {
+    input.onclick = (layer) => {
+        const layerId = layer.target.id;
+        map.setStyle('mapbox://styles/mapbox/' + layerId);
+    };
+}
 
 // Add a marker to the map 
 new mapboxgl.Marker()

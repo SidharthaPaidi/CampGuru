@@ -1,3 +1,8 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #334240;
+  }
+  
 #menu {
     position: absolute;
     background: #ffffff;
