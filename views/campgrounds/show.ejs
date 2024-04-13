@@ -8,7 +8,7 @@
                 <div class="carousel-inner"> <!-- Start the inner part of the carousel -->
                     <% campground.images.forEach((img, i)=> { %> <!-- Loop over each image in the campground -->
                         <div class="carousel-item <%= i === 0 ? 'active' : ''%>"> <!-- Start a new carousel item -->
-                            <img src="<%= img.url%>" class="d-block w-100" alt=""> <!-- Display the image -->
+                            <img crossorigin="anonymous" src="<%= img.url %>" class="d-block w-100" alt=""> <!-- Display the image -->
                         </div>
                     <% }) %>
                 </div>
