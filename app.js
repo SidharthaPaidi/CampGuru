@@ -19,7 +19,7 @@ const mongoose = require('mongoose')
 const ejsMate = require('ejs-mate')
 
 // Import the express-session module for managing session data
-const session = require('express-session')
+// const session = require('express-session')
 
 // Import the ExpressError utility for creating Express error objects
 const ExpressError = require('./utils/ExpressError')
@@ -49,8 +49,17 @@ const campgroundRoutes = require('./routes/campgrounds')
 const reviewRoutes = require('./routes/reviews')
 const userRoutes = require('./routes/users')
 
+// Import the ExpressError utility for creating Express error objects
+const helmet = require('helmet')
+
+const session = require('express-session'); //this is so that we can use the express-session package
+const MongoStore = require('connect-mongo');
+
+const dbUrl = process.env.DB_URL
+// 'mongodb://127.0.0.1:27017/camp-guru'
 mongoose.set('strict', true);
-mongoose.connect('mongodb://127.0.0.1:27017/camp-guru');
+// mongoose.connect('mongodb://127.0.0.1:27017/camp-guru');
+mongoose.connect(dbUrl)
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -67,6 +76,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, 'public')))
+
 
 app.use(
     mongoSanitize({
@@ -91,8 +101,23 @@ app.use(
  * Configuration object for session management.
  * @type {SessionConfig}
  */
+
+const store = MongoStore.create({
+    // mongoUrl: 'mongodb://127.0.0.1:27017/camp-guru',
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'thisshouldbeabettersecret!',
+    }
+  });
+  
+  store.on("error on mongo session store", function (e) {
+    console.log("SESSION STORE ERROR", e)
+  });
+
 const sessionConfig = {
-    name: 'session',
+    store,
+    // name: 'session',
     secret: 'thisshouldbeabettersecret!',
     resave: false,
     saveUninitialized: true,
@@ -105,6 +130,58 @@ const sessionConfig = {
 };
 app.use(session(sessionConfig))
 app.use(flash())
+
+app.use(helmet({
+    contentSecurityPolicy: false
+}))
+
+const scriptSrcUrls = [
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://api.mapbox.com/",
+    "https://kit.fontawesome.com/",
+    "https://cdnjs.cloudflare.com/",
+    "https://cdn.jsdelivr.net",
+    "https://ajax.googleapis.com",
+    "https://code.jquery.com/",
+];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com/",
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.mapbox.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://fonts.googleapis.com/",
+    "https://use.fontawesome.com/",
+    "https://cdn.jsdelivr.net",
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com/",
+    "https://a.tiles.mapbox.com/",
+    "https://b.tiles.mapbox.com/",
+    "https://events.mapbox.com/",
+    
+];
+const fontSrcUrls = ["'self'", "data:", "https://fonts.gstatic.com/"];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com/dhorfmxva/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
+                "https://images.unsplash.com/",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
 
 app.use(passport.initialize())
 app.use(passport.session())
