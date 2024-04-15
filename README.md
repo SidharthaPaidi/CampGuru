@@ -9,6 +9,8 @@ CampGuru is a Node.js Express.js application designed to enhance your camping ex
 
 
 
+
+
 ## Project Preview 🖥️
 
 ![Home Page Preview](https://res.cloudinary.com/dhorfmxva/image/upload/v1713203350/i1slmezlf7ksrcfhrzkp.png)
@@ -20,6 +22,26 @@ CampGuru is a Node.js Express.js application designed to enhance your camping ex
 # LiveWebsite
 
 **Check out the CampGuru website:** [CampGuru](https://campguru.onrender.com/)
+
+## Project Tech Stack Summary
+
+- **Node.js**: Version 20.11.0 is specified as the engine.
+- **Express.js**: A web application framework for Node.js, used for building server-side applications and APIs.
+- **MongoDB**: Handled through the Mongoose library, a popular Object Data Modeling (ODM) library for MongoDB and Node.js.
+- **Cloudinary**: A cloud-based image and video management service, likely used for handling image uploads and storage.
+- **Firebase**: A platform for building mobile and web applications, possibly utilized for various functionalities like authentication, real-time database, or cloud storage.
+- **Passport.js**: A middleware for authentication in Node.js applications, often used with strategies like local authentication (passport-local) for username/password authentication.
+- **dotenv**: A module for loading environment variables from a `.env` file into `process.env`, commonly used for managing configuration in Node.js applications.
+- **EJS**: A templating language used for generating HTML markup with JavaScript.
+- **Helmet**: A collection of middleware functions to help secure Express applications by setting various HTTP headers.
+- **Joi**: A schema description language and data validator for JavaScript objects, often used for input validation and schema definition.
+- **sanitize-html**: A module for sanitizing HTML inputs, useful for preventing XSS (cross-site scripting) attacks.
+- **Connect-flash**: A flash message middleware for Express applications, typically used for displaying temporary messages to users.
+- **Multer**: A middleware for handling `multipart/form-data`, commonly used for file uploads.
+- **Multer-storage-cloudinary**: A Multer storage engine for Cloudinary, allowing direct upload to Cloudinary.
+
+
+
 
 ## Features
 
