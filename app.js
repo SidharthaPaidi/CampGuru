@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== "production") {
     require('dotenv').config()
 }
 
+
 // Log the value of the SECRET environment variable to the console
 console.log(process.env.SECRET)
 
@@ -55,7 +56,7 @@ const helmet = require('helmet')
 const session = require('express-session'); //this is so that we can use the express-session package
 const MongoStore = require('connect-mongo');
 
-const dbUrl = process.env.DB_URL
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/camp-guru'
 // 'mongodb://127.0.0.1:27017/camp-guru'
 mongoose.set('strict', true);
 // mongoose.connect('mongodb://127.0.0.1:27017/camp-guru');
@@ -102,12 +103,13 @@ app.use(
  * @type {SessionConfig}
  */
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
 const store = MongoStore.create({
     // mongoUrl: 'mongodb://127.0.0.1:27017/camp-guru',
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'thisshouldbeabettersecret!',
+        secret
     }
   });
   
@@ -118,7 +120,7 @@ const store = MongoStore.create({
 const sessionConfig = {
     store,
     // name: 'session',
-    secret: 'thisshouldbeabettersecret!',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
