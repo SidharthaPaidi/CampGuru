@@ -1,6 +1,7 @@
 <% layout('layouts/boilerplate') %>
 
-<div id='cluster-map'></div>
+    <div id='cluster-map'></div>
+    
 <div id="menu">
     <input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite-streets-v12">
     <!-- See a list of Mapbox-hosted public styles at -->
@@ -17,8 +18,8 @@
 </div>
     
     <div class="mt-5 mb-3">
-        <h1>All Campgrounds</h1>
-        <a href="/campgrounds/new"><button class="btn btn-primary">New Campground</button></a>
+        <h1 class="text-center">All Campgrounds</h1>
+
     </div>
 
     <% for(let campground of campgrounds) {%>
